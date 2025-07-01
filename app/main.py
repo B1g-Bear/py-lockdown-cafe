@@ -1,5 +1,5 @@
 from cafe import Cafe
-from errors import VaccineError, NotWearingMaskError
+from errors import VaccineError
 
 
 def go_to_cafe(friends: list[dict], cafe: Cafe) -> str:
@@ -16,7 +16,8 @@ def go_to_cafe(friends: list[dict], cafe: Cafe) -> str:
             return "All friends should be vaccinated"
 
         expiration_date = friend["vaccine"].get("expiration_date")
-        if expiration_date is None or expiration_date < __import__('datetime').date.today():
+        today = __import__("datetime").date.today()
+        if expiration_date is None or expiration_date < today:
             return "All friends should be vaccinated"
 
         if not friend.get("wearing_a_mask", False):
